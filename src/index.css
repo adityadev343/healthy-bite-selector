@@ -117,4 +117,31 @@
     transform: translate(-50%, -50%);
     mix-blend-mode: plus-lighter;
   }
+  
+  .meal-plan-table {
+    @apply rounded-xl overflow-hidden shadow-sm border border-gray-100;
+  }
+  
+  .meal-plan-table table {
+    @apply w-full border-collapse;
+  }
+  
+  .meal-plan-table th {
+    @apply bg-primary/5 text-primary-foreground py-3 px-4 text-left font-semibold;
+  }
+  
+  .meal-plan-table td {
+    @apply py-3 px-4 border-b border-gray-100;
+  }
+  
+  @keyframes food-item-highlight {
+    0% { box-shadow: 0 0 0 0 rgba(var(--primary), 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(var(--primary), 0); }
+    100% { box-shadow: 0 0 0 0 rgba(var(--primary), 0); }
+  }
+  
+  .highlight-animation {
+    animation: food-item-highlight 2s infinite;
+  }
 }
+

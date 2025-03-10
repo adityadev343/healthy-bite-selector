@@ -5,13 +5,16 @@ import AddFoodForm from '../components/AddFoodForm';
 import FoodPicker from '../components/FoodPicker';
 import FoodItem from '../components/FoodItem';
 import Instructions from '../components/Instructions';
+import AIFoodPlanner from '../components/AIFoodPlanner';
 import { toast } from "sonner";
-import { Utensils } from 'lucide-react';
+import { Utensils, CalendarDays } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Index: React.FC = () => {
   const [foodItems, setFoodItems] = useState<string[]>([]);
   const [selectedFood, setSelectedFood] = useState<string | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [activeTab, setActiveTab] = useState<string>("food-picker");
 
   // Load food items from localStorage on initial render
   useEffect(() => {
@@ -94,7 +97,7 @@ const Index: React.FC = () => {
         }}
       />
       
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -117,49 +120,88 @@ const Index: React.FC = () => {
           <AddFoodForm onAddFood={handleAddFood} />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div>
-            <h2 className="text-xl font-semibold mb-4 text-gray-800">
-              Your Food List {foodItems.length > 0 && `(${foodItems.length})`}
-            </h2>
-            
-            <div className="bg-white/40 backdrop-blur-sm rounded-xl p-4 border border-gray-100 min-h-[200px]">
-              <AnimatePresence>
-                {foodItems.length > 0 ? (
-                  <div className="space-y-2">
-                    {foodItems.map((food, index) => (
-                      <FoodItem
-                        key={`${food}-${index}`}
-                        name={food}
-                        onRemove={() => handleRemoveFood(index)}
-                        isSelected={food === selectedFood}
-                      />
-                    ))}
-                  </div>
-                ) : (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="h-full flex items-center justify-center text-gray-400 text-center p-8"
-                  >
-                    <p>Your food list is empty. Add some healthy options to get started!</p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          </div>
+        <Tabs 
+          defaultValue="food-picker" 
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="mb-10"
+        >
+          <TabsList className="grid w-full grid-cols-2 mb-6">
+            <TabsTrigger 
+              value="food-picker"
+              className="flex items-center gap-2"
+            >
+              <Utensils className="h-4 w-4" />
+              <span>Food Picker</span>
+            </TabsTrigger>
+            <TabsTrigger 
+              value="meal-planner"
+              className="flex items-center gap-2"
+            >
+              <CalendarDays className="h-4 w-4" />
+              <span>AI Meal Planner</span>
+            </TabsTrigger>
+          </TabsList>
           
-          <div>
-            <h2 className="text-xl font-semibold mb-4 text-gray-800">Food Selector</h2>
-            <div className="bg-white/40 backdrop-blur-sm rounded-xl p-6 border border-gray-100 flex flex-col items-center justify-center min-h-[200px]">
-              <FoodPicker
-                foodItems={foodItems}
-                selectedFood={selectedFood}
-                onPickFood={handlePickFood}
-              />
+          <TabsContent value="food-picker" className="mt-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h2 className="text-xl font-semibold mb-4 text-gray-800">
+                  Your Food List {foodItems.length > 0 && `(${foodItems.length})`}
+                </h2>
+                
+                <div className="bg-white/40 backdrop-blur-sm rounded-xl p-4 border border-gray-100 min-h-[200px]">
+                  <AnimatePresence>
+                    {foodItems.length > 0 ? (
+                      <div className="space-y-2">
+                        {foodItems.map((food, index) => (
+                          <FoodItem
+                            key={`${food}-${index}`}
+                            name={food}
+                            onRemove={() => handleRemoveFood(index)}
+                            isSelected={food === selectedFood}
+                          />
+                        ))}
+                      </div>
+                    ) : (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="h-full flex items-center justify-center text-gray-400 text-center p-8"
+                      >
+                        <p>Your food list is empty. Add some healthy options to get started!</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+              
+              <div>
+                <h2 className="text-xl font-semibold mb-4 text-gray-800">Food Selector</h2>
+                <div className="bg-white/40 backdrop-blur-sm rounded-xl p-6 border border-gray-100 flex flex-col items-center justify-center min-h-[200px]">
+                  <FoodPicker
+                    foodItems={foodItems}
+                    selectedFood={selectedFood}
+                    onPickFood={handlePickFood}
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
+          </TabsContent>
+          
+          <TabsContent value="meal-planner" className="mt-2">
+            <div className="mb-4">
+              <h2 className="text-xl font-semibold mb-4 text-gray-800">AI Meal Planner</h2>
+              <p className="text-gray-600 mb-6">
+                Generate a custom meal plan with healthy food options. The AI will create a balanced plan based on healthy recommendations and optionally include items from your list.
+              </p>
+              
+              <div className="bg-white/40 backdrop-blur-sm rounded-xl p-6 border border-gray-100">
+                <AIFoodPlanner userFoodItems={foodItems} />
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
