@@ -14,8 +14,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 221.2 83% 53.3%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 142 76% 36%;
+    --primary-foreground: 355.7 100% 97.3%;
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -31,7 +31,7 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83% 53.3%;
+    --ring: 142 76% 36%;
 
     --radius: 1rem;
   }
@@ -46,8 +46,8 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 142 70% 50%;
+    --primary-foreground: 144.9 80.4% 10%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -63,7 +63,7 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    --ring: 142 70% 50%;
   }
 }
 
@@ -111,7 +111,7 @@
   }
   
   .spotlight {
-    @apply pointer-events-none fixed inset-0 z-30 transition duration-300 bg-gradient-to-br from-primary/20 via-transparent to-transparent opacity-0;
+    @apply pointer-events-none fixed inset-0 z-30 transition duration-300 bg-gradient-to-br from-green-200/20 via-transparent to-transparent opacity-0;
     height: 50vh;
     width: 50vw;
     transform: translate(-50%, -50%);
@@ -119,7 +119,7 @@
   }
   
   .meal-plan-table {
-    @apply rounded-xl overflow-hidden shadow-sm border border-gray-100;
+    @apply rounded-xl overflow-hidden shadow-md border border-amber-100;
   }
   
   .meal-plan-table table {
@@ -127,21 +127,20 @@
   }
   
   .meal-plan-table th {
-    @apply bg-primary/5 text-primary-foreground py-3 px-4 text-left font-semibold;
+    @apply bg-gradient-to-r from-amber-100 to-orange-50 text-amber-800 py-3 px-4 text-left font-semibold;
   }
   
   .meal-plan-table td {
-    @apply py-3 px-4 border-b border-gray-100;
+    @apply py-3 px-4 border-b border-amber-50;
   }
   
   @keyframes food-item-highlight {
-    0% { box-shadow: 0 0 0 0 rgba(var(--primary), 0.4); }
-    70% { box-shadow: 0 0 0 10px rgba(var(--primary), 0); }
-    100% { box-shadow: 0 0 0 0 rgba(var(--primary), 0); }
+    0% { box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(5, 150, 105, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(5, 150, 105, 0); }
   }
   
   .highlight-animation {
     animation: food-item-highlight 2s infinite;
   }
 }
-

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Shuffle, AlertCircle } from 'lucide-react';
+import { Shuffle, AlertCircle, Utensils } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from "sonner";
 
@@ -29,12 +29,12 @@ const FoodPicker: React.FC<FoodPickerProps> = ({
   return (
     <div className="w-full flex flex-col items-center">
       <motion.button
-        whileHover={{ scale: 1.03 }}
-        whileTap={{ scale: 0.97 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         onClick={handlePickFood}
-        className="button-hover bg-primary text-primary-foreground font-medium rounded-xl px-8 py-4 flex items-center justify-center gap-2 shadow-md shadow-primary/20"
+        className="button-hover bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-medium rounded-xl px-8 py-4 flex items-center justify-center gap-2 shadow-lg shadow-green-200/50 transition-all duration-300"
       >
-        <Shuffle size={20} />
+        <Shuffle className="h-5 w-5" />
         <span>Choose Random Food</span>
       </motion.button>
       
@@ -50,12 +50,29 @@ const FoodPicker: React.FC<FoodPickerProps> = ({
               stiffness: 500, 
               damping: 30 
             }}
-            className="mt-8 p-6 w-full max-w-md rounded-2xl glass-card highlight-item border border-primary/30 shadow-lg"
+            className="mt-8 p-6 w-full max-w-md rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-emerald-200 shadow-xl shadow-emerald-100/50"
           >
             <div className="text-center">
-              <span className="text-xs font-medium text-primary/60 uppercase tracking-wider">Your selected food</span>
-              <h3 className="text-3xl font-bold mt-2 mb-1 text-gray-900">{selectedFood}</h3>
-              <p className="text-gray-500 text-sm">Enjoy your healthy meal!</p>
+              <span className="text-xs font-medium text-emerald-600 uppercase tracking-wider">Your selected food</span>
+              <div className="relative">
+                <motion.div
+                  className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-green-300 to-emerald-300 blur-xl opacity-40"
+                  animate={{ 
+                    scale: [1, 1.1, 1],
+                    opacity: [0.4, 0.6, 0.4],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    repeatType: "reverse"
+                  }}
+                />
+                <h3 className="text-3xl font-bold mt-2 mb-1 text-gray-900">{selectedFood}</h3>
+              </div>
+              <div className="flex items-center justify-center gap-2 mt-2">
+                <Utensils className="h-4 w-4 text-emerald-500" />
+                <p className="text-emerald-700 text-sm">Enjoy your healthy meal!</p>
+              </div>
             </div>
           </motion.div>
         )}
@@ -74,9 +91,9 @@ const FoodPicker: React.FC<FoodPickerProps> = ({
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="mt-8 flex items-center gap-2 text-amber-500"
+            className="mt-8 flex items-center gap-2 text-amber-600 bg-amber-50 px-4 py-2 rounded-lg"
           >
-            <AlertCircle size={16} />
+            <AlertCircle className="h-5 w-5 text-amber-500" />
             <p>Add some food items to get started!</p>
           </motion.div>
         )}
