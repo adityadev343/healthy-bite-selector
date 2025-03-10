@@ -6,13 +6,13 @@ import { Sparkles, Calendar, Loader2 } from 'lucide-react';
 import { toast } from "sonner";
 import { cn } from '@/lib/utils';
 
-// Sample healthy food categories with examples
-const HEALTHY_FOOD_CATEGORIES = {
-  proteins: ['Grilled Chicken', 'Salmon', 'Tofu', 'Greek Yogurt', 'Lentils', 'Eggs', 'Turkey', 'Chickpeas', 'Quinoa', 'Tuna'],
-  vegetables: ['Broccoli', 'Spinach', 'Kale', 'Bell Peppers', 'Carrots', 'Sweet Potatoes', 'Cauliflower', 'Zucchini', 'Brussels Sprouts', 'Tomatoes'],
-  fruits: ['Blueberries', 'Apples', 'Oranges', 'Bananas', 'Strawberries', 'Avocados', 'Kiwi', 'Pineapple', 'Grapes', 'Mangoes'],
-  grains: ['Brown Rice', 'Oatmeal', 'Whole Wheat Bread', 'Barley', 'Farro', 'Whole Grain Pasta', 'Buckwheat', 'Millet', 'Bulgur', 'Corn Tortillas'],
-  snacks: ['Almonds', 'Hummus with Carrots', 'Apple with Peanut Butter', 'Greek Yogurt with Berries', 'Trail Mix', 'Edamame', 'Roasted Chickpeas', 'Rice Cakes with Avocado', 'Cottage Cheese with Fruit', 'Hard-Boiled Eggs']
+// Indian food categories with examples
+const INDIAN_FOOD_CATEGORIES = {
+  breakfast: ['Idli Sambar', 'Poha', 'Upma', 'Aloo Paratha', 'Masala Dosa', 'Uttapam', 'Vada', 'Besan Chilla', 'Puri Bhaji', 'Methi Thepla'],
+  lunch: ['Chole Bhature', 'Rajma Chawal', 'Dal Makhani with Naan', 'Paneer Butter Masala with Rice', 'Vegetable Biryani', 'Palak Paneer with Roti', 'Aloo Gobi with Paratha', 'Sambar Rice', 'Baingan Bharta with Roti', 'Masoor Dal with Jeera Rice'],
+  dinner: ['Butter Chicken with Naan', 'Veg Pulao', 'Chana Masala with Roti', 'Kadhai Paneer with Paratha', 'Malai Kofta with Naan', 'Matar Paneer with Rice', 'Dal Tadka with Roti', 'Egg Curry with Paratha', 'Fish Curry with Rice', 'Chicken Biryani'],
+  sides: ['Raita', 'Papad', 'Pickle', 'Kachumber Salad', 'Boondi Raita', 'Mango Chutney', 'Tomato Chutney', 'Mint Chutney', 'Coconut Chutney', 'Onion Salad'],
+  sweets: ['Gulab Jamun', 'Rasgulla', 'Jalebi', 'Kheer', 'Gajar Ka Halwa', 'Ras Malai', 'Mysore Pak', 'Barfi', 'Ladoo', 'Kulfi']
 };
 
 interface MealPlan {
@@ -35,8 +35,8 @@ const AIFoodPlanner: React.FC<AIFoodPlannerProps> = ({ userFoodItems }) => {
 
   const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
-  const generateRandomFoodItem = (category: keyof typeof HEALTHY_FOOD_CATEGORIES, excludeItems: string[] = []): string => {
-    let availableItems = [...HEALTHY_FOOD_CATEGORIES[category]];
+  const generateRandomFoodItem = (category: keyof typeof INDIAN_FOOD_CATEGORIES, excludeItems: string[] = []): string => {
+    let availableItems = [...INDIAN_FOOD_CATEGORIES[category]];
     
     // If user prefers their own items and they have items, include them in the selection pool
     if (preferUserItems && userFoodItems.length > 0) {
@@ -48,7 +48,7 @@ const AIFoodPlanner: React.FC<AIFoodPlannerProps> = ({ userFoodItems }) => {
     
     // If no items available, return from the original category
     if (availableItems.length === 0) {
-      availableItems = [...HEALTHY_FOOD_CATEGORIES[category]];
+      availableItems = [...INDIAN_FOOD_CATEGORIES[category]];
     }
     
     const randomIndex = Math.floor(Math.random() * availableItems.length);
@@ -68,16 +68,18 @@ const AIFoodPlanner: React.FC<AIFoodPlannerProps> = ({ userFoodItems }) => {
           // For each day, ensure we don't repeat items within the day
           const dayExcludeItems: string[] = [];
           
-          const breakfast = generateRandomFoodItem('proteins', dayExcludeItems);
+          const breakfast = generateRandomFoodItem('breakfast', dayExcludeItems);
           dayExcludeItems.push(breakfast);
           
-          const lunch = generateRandomFoodItem('vegetables', dayExcludeItems);
+          const lunch = generateRandomFoodItem('lunch', dayExcludeItems);
           dayExcludeItems.push(lunch);
           
-          const dinner = generateRandomFoodItem('grains', dayExcludeItems);
+          const dinner = generateRandomFoodItem('dinner', dayExcludeItems);
           dayExcludeItems.push(dinner);
           
-          const snack = generateRandomFoodItem('snacks', dayExcludeItems);
+          const snack = i % 2 === 0 ? 
+            generateRandomFoodItem('sides', dayExcludeItems) : 
+            generateRandomFoodItem('sweets', dayExcludeItems);
           
           newMealPlan.push({
             day: days[i % 7],
@@ -89,7 +91,7 @@ const AIFoodPlanner: React.FC<AIFoodPlannerProps> = ({ userFoodItems }) => {
         }
         
         setMealPlan(newMealPlan);
-        toast.success("Meal plan generated successfully!");
+        toast.success("Indian meal plan generated successfully!");
       } catch (error) {
         console.error("Error generating meal plan:", error);
         toast.error("Failed to generate meal plan. Please try again.");
@@ -151,7 +153,7 @@ const AIFoodPlanner: React.FC<AIFoodPlannerProps> = ({ userFoodItems }) => {
             ) : (
               <>
                 <Sparkles className="mr-2 h-4 w-4" />
-                Generate Meal Plan
+                Generate Indian Meal Plan
               </>
             )}
           </Button>
@@ -197,8 +199,8 @@ const AIFoodPlanner: React.FC<AIFoodPlannerProps> = ({ userFoodItems }) => {
             </div>
             
             <p className="text-xs text-gray-500 mt-4 italic">
-              Note: This meal plan is generated using an algorithm with healthy food recommendations. 
-              Adjust portions and ingredients according to your dietary needs.
+              Note: This Indian meal plan is generated using an algorithm with traditional Indian dishes. 
+              Adjust portions and ingredients according to your dietary needs and preferences.
             </p>
           </motion.div>
         )}

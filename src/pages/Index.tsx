@@ -139,7 +139,7 @@ const Index: React.FC = () => {
               className="flex items-center gap-2"
             >
               <CalendarDays className="h-4 w-4" />
-              <span>AI Meal Planner</span>
+              <span>Indian Meal Planner</span>
             </TabsTrigger>
           </TabsList>
           
@@ -191,9 +191,9 @@ const Index: React.FC = () => {
           
           <TabsContent value="meal-planner" className="mt-2">
             <div className="mb-4">
-              <h2 className="text-xl font-semibold mb-4 text-gray-800">AI Meal Planner</h2>
+              <h2 className="text-xl font-semibold mb-4 text-gray-800">Indian Meal Planner</h2>
               <p className="text-gray-600 mb-6">
-                Generate a custom meal plan with healthy food options. The AI will create a balanced plan based on healthy recommendations and optionally include items from your list.
+                Generate a custom Indian meal plan with authentic dishes. The AI will create a balanced plan of traditional Indian cuisine and optionally include items from your list.
               </p>
               
               <div className="bg-white/40 backdrop-blur-sm rounded-xl p-6 border border-gray-100">
