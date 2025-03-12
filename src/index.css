@@ -14,7 +14,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 142 76% 36%;
+    --primary: 160 84% 39%;
     --primary-foreground: 355.7 100% 97.3%;
 
     --secondary: 210 40% 96.1%;
@@ -31,7 +31,7 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 142 76% 36%;
+    --ring: 160 84% 39%;
 
     --radius: 1rem;
   }
@@ -46,7 +46,7 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 142 70% 50%;
+    --primary: 155 70% 50%;
     --primary-foreground: 144.9 80.4% 10%;
 
     --secondary: 217.2 32.6% 17.5%;
@@ -63,7 +63,7 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 142 70% 50%;
+    --ring: 155 70% 50%;
   }
 }
 
@@ -111,7 +111,7 @@
   }
   
   .spotlight {
-    @apply pointer-events-none fixed inset-0 z-30 transition duration-300 bg-gradient-to-br from-green-200/20 via-transparent to-transparent opacity-0;
+    @apply pointer-events-none fixed inset-0 z-30 transition duration-300 bg-gradient-to-br from-teal-200/20 via-transparent to-transparent opacity-0;
     height: 50vh;
     width: 50vw;
     transform: translate(-50%, -50%);
@@ -127,7 +127,7 @@
   }
   
   .meal-plan-table th {
-    @apply bg-gradient-to-r from-amber-100 to-orange-50 text-amber-800 py-3 px-4 text-left font-semibold;
+    @apply bg-gradient-to-r from-amber-50 to-orange-50 text-amber-700 py-3 px-4 text-left font-semibold;
   }
   
   .meal-plan-table td {
@@ -135,9 +135,9 @@
   }
   
   @keyframes food-item-highlight {
-    0% { box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.4); }
-    70% { box-shadow: 0 0 0 10px rgba(5, 150, 105, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(5, 150, 105, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(20, 184, 166, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0); }
   }
   
   .highlight-animation {
